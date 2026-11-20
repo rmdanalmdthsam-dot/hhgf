@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بي نيشتي للاستثمار العقاري | عقارات أسيوط والهضبة وأسيوط الجديدة ومدينة نصر</title>
+  <link rel="icon" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'Tajawal', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Cairo', 'Tajawal', sans-serif; }
+    .fade-in { animation: fadeIn 0.3s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-white">
+
+  <!-- Top Micro-bar -->
+  <div class="bg-slate-900 text-slate-300 text-xs py-1.5 px-4 sm:px-8 flex justify-between items-center border-b border-slate-800">
+    <div class="flex items-center gap-4">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-semibold text-white">بي نيشتي للاستثمار العقاري</span>
+        <span class="text-slate-400 hidden sm:inline">- المنصة المعتمدة بأسيوط ومدينة نصر ومصر</span>
+      </span>
+      <span class="hidden md:inline-block text-slate-600">|</span>
+      <span class="hidden md:inline-block text-slate-400">تصفح مجاني لكافة العقارات والشقق بدون أي عمولات</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="toggleSiteLanguage()" class="flex items-center gap-1 text-[11px] font-bold bg-white/10 hover:bg-white/20 text-white px-2.5 py-0.5 rounded-full transition">
+        <i data-lucide="globe" class="w-3 h-3 text-amber-400"></i>
+        <span id="lang-btn-text">English</span>
+      </button>
+      <span class="text-xs text-amber-400 font-semibold">خدمة عملاء 24/7</span>
+    </div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform shrink-0">
+          <i data-lucide="building-2" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight block">
+            بي نيشتي <span class="text-amber-600">للاستثمار العقاري</span>
+          </span>
+          <span class="text-[11px] font-semibold text-slate-500 tracking-normal block -mt-0.5">
+            عقارات أسيوط والهضبة والجديدة ومدينة نصر
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-700">
+        <a href="index.html" class="text-amber-600 font-bold">الرئيسية</a>
+        <a href="properties.html?city=ASSIUT" class="hover:text-amber-600 transition">عقارات أسيوط</a>
+        <a href="properties.html?city=ASSIUT_NEW" class="hover:text-amber-600 transition">أسيوط الجديدة</a>
+        <a href="properties.html?city=ASSIUT_NASSER" class="hover:text-amber-600 transition">الهضبة الغربية</a>
+        <a href="properties.html?city=NASR_CITY" class="hover:text-amber-600 transition">مدينة نصر</a>
+        <a href="properties.html?purpose=SALE" class="hover:text-amber-600 transition">شقق للبيع</a>
+        <a href="properties.html?purpose=RENT" class="hover:text-amber-600 transition">شقق للإيجار</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <a href="add-property.html" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold px-5 py-3 rounded-xl shadow-md hover:from-amber-600 hover:to-amber-700 transition active:scale-95 text-xs sm:text-sm">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>اعرض عقارك الآن</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Search Section -->
+  <section class="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
+    <!-- Background Glow -->
+    <div class="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10 space-y-6">
+      <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full text-xs font-semibold text-amber-300">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+        <span>بوابتك العقارية الأولى المعتمدة في الصعيد والقاهرة</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+        ابحث عن شقتك أو عقارك القادم في <br class="hidden sm:inline">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-400">أسيوط والهضبة ومدينة نصر</span>
+      </h1>
+      <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        تصفح شقق التمليك والإيجار، دوبلكس، وفلل، وأراضي بدون أي وسيط وبدون عمولات. إعلانات موثقة ومراجعة بدقة معتمدة.
+      </p>
+
+      <!-- Search Box Card -->
+      <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-4 sm:p-6 rounded-3xl shadow-2xl text-slate-900 text-right mt-8">
+        <!-- Purpose Tabs -->
+        <div class="flex gap-2 mb-4 border-b border-white/10 pb-3">
+          <button onclick="setFilterPurpose('ALL')" class="filter-tab px-4 py-1.5 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950">الكل</button>
+          <button onclick="setFilterPurpose('SALE')" class="filter-tab px-4 py-1.5 rounded-xl text-xs font-bold transition text-white hover:bg-white/10">شقق للبيع</button>
+          <button onclick="setFilterPurpose('RENT')" class="filter-tab px-4 py-1.5 rounded-xl text-xs font-bold transition text-white hover:bg-white/10">شقق للإيجار</button>
+        </div>
+
+        <!-- Filter Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <!-- City -->
+          <div>
+            <label class="text-slate-300 font-bold block mb-1">المدينة / المحافظة:</label>
+            <select id="filter-city" onchange="applySearchFilter()" class="w-full bg-white text-slate-900 font-bold px-3 py-2.5 rounded-xl border-none outline-none">
+              <option value="ALL">جميع المدن والمحافظات</option>
+              <option value="ASSIUT">أسيوط (الأحياء والمراكز)</option>
+              <option value="ASSIUT_NEW">أسيوط الجديدة (جامعة بدر وسفنكس)</option>
+              <option value="ASSIUT_NASSER">مدينة ناصر (الهضبة الغربية)</option>
+              <option value="NASR_CITY">مدينة نصر (القاهرة)</option>
+            </select>
+          </div>
+
+          <!-- Property Type -->
+          <div>
+            <label class="text-slate-300 font-bold block mb-1">نوع العقار:</label>
+            <select id="filter-type" onchange="applySearchFilter()" class="w-full bg-white text-slate-900 font-bold px-3 py-2.5 rounded-xl border-none outline-none">
+              <option value="ALL">كافة أنواع العقارات</option>
+              <option value="APARTMENT">شقة سكنية</option>
+              <option value="DUPLEX">دوبلكس فاخر</option>
+              <option value="VILLA">فيلا مستقلة</option>
+              <option value="COMMERCIAL">محل تجاري</option>
+              <option value="LAND">أرض فضاء</option>
+            </select>
+          </div>
+
+          <!-- Price Range -->
+          <div>
+            <label class="text-slate-300 font-bold block mb-1">السعر التقريبي:</label>
+            <select id="filter-price" onchange="applySearchFilter()" class="w-full bg-white text-slate-900 font-bold px-3 py-2.5 rounded-xl border-none outline-none">
+              <option value="ALL">جميع الأسعار</option>
+              <option value="UNDER_1M">أقل من 1,000,000 ج.م</option>
+              <option value="1M_2M">1,000,000 - 2,000,000 ج.م</option>
+              <option value="2M_3M">2,000,000 - 3,000,000 ج.م</option>
+              <option value="ABOVE_3M">أكثر من 3,000,000 ج.م</option>
+            </select>
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button onclick="applySearchFilter()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black py-2.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+              <i data-lucide="search" class="w-4 h-4"></i>
+              <span>ابحث الآن</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Listings Catalog Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1">
+    <div class="flex flex-wrap justify-between items-end mb-8 gap-4 border-b border-slate-200 pb-4">
+      <div>
+        <span class="text-xs font-bold text-amber-600 block">عقارات موثقة ومحدثة اليوم</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900">أحدث العقارات المتاحة للبيع والإيجار</h2>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-slate-500 font-bold" id="props-count-badge">عرض العقارات...</span>
+        <a href="properties.html" class="text-xs font-bold text-amber-600 hover:underline flex items-center gap-1">
+          <span>عرض الكل في صفحة مستقلة</span>
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Properties Grid Container -->
+    <div id="properties-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Injected via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Banque Misr Direct Payout Banner -->
+  <section class="bg-gradient-to-r from-amber-50 via-white to-amber-50 border-y border-amber-200 py-10 px-4">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-right">
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 bg-white rounded-2xl border-2 border-amber-400 p-2 shadow-sm shrink-0 flex items-center justify-center font-black text-amber-900 text-lg">
+          BM
+        </div>
+        <div>
+          <span class="text-[11px] font-black uppercase tracking-wider bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded-full inline-block mb-1">
+            الحساب المصرفي المعتمد للمنصة
+          </span>
+          <h3 class="text-lg font-black text-slate-900">تحصيل وسداد معتمد عبر بنك مصر (Banque Misr)</h3>
+          <p class="text-xs text-slate-600 mt-0.5">
+            رقم الحساب: <strong class="font-mono text-slate-900 text-sm">3670383000000918</strong> | الآيبان الدولي: <strong class="font-mono text-slate-800 text-xs" dir="ltr">EG410002036703670383000000918</strong>
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="add-property.html" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-md transition">
+          انشر عقارك الآن بالفيزا أو بنك مصر
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Details Modal -->
+  <div id="prop-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative max-h-[92vh] flex flex-col fade-in">
+      <button onclick="closePropModal()" class="absolute top-4 left-4 z-10 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="relative aspect-video bg-slate-950 shrink-0">
+        <img id="modal-img" src="" class="w-full h-full object-cover">
+        <span id="modal-badge-purpose" class="absolute top-4 right-4 bg-emerald-600 text-white font-black text-xs px-3 py-1 rounded-full shadow"></span>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-right flex-1">
+        <div>
+          <span class="text-xs font-bold text-amber-600" id="modal-code"></span>
+          <h3 class="text-xl font-black text-slate-900 mt-0.5" id="modal-title"></h3>
+          <p class="text-xs text-slate-500 mt-1 flex items-center gap-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500"></i>
+            <span id="modal-location"></span>
+          </p>
+        </div>
+
+        <div class="flex justify-between items-center bg-slate-50 p-4 rounded-2xl border border-slate-200">
+          <div>
+            <span class="text-xs text-slate-400 block">السعر المطلوب</span>
+            <strong class="text-2xl font-black text-slate-900" id="modal-price"></strong>
+          </div>
+          <div class="flex items-center gap-4 text-xs font-bold text-slate-700">
+            <span id="modal-area"></span>
+            <span id="modal-beds"></span>
+            <span id="modal-baths"></span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-xs text-slate-400 mb-1">تفاصيل ومزايا العقار:</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed bg-white p-3 rounded-xl border border-slate-100" id="modal-desc"></p>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="pt-4 border-t flex gap-3">
+          <a id="modal-btn-wa" href="" target="_blank" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-center text-xs flex items-center justify-center gap-2 transition shadow-md">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>تواصل عبر الواتساب</span>
+          </a>
+          <a id="modal-btn-call" href="" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-center text-xs flex items-center justify-center gap-2 transition shadow-md">
+            <i data-lucide="phone" class="w-4 h-4"></i>
+            <span>اتصال هاتفي</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating AI Assistant Button -->
+  <div class="fixed bottom-6 left-6 z-40">
+    <button onclick="toggleAIChat()" class="flex items-center gap-3 bg-gradient-to-r from-amber-500 via-amber-600 to-slate-900 text-white px-5 py-3.5 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition border-2 border-amber-300">
+      <i data-lucide="bot" class="w-6 h-6 animate-bounce"></i>
+      <div class="text-right hidden sm:block">
+        <div class="font-black text-xs text-white">المستشار العقاري الذكي</div>
+        <div class="text-[10px] text-amber-200">استفسر عن الأسعار والعقارات</div>
+      </div>
+      <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-full">AI 24/7</span>
+    </button>
+  </div>
+
+  <!-- AI Chat Modal -->
+  <div id="ai-chat-modal" class="fixed bottom-24 left-6 z-50 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl border border-slate-200 p-4 hidden flex-col fade-in">
+    <div class="flex justify-between items-center border-b pb-2 mb-3">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold">
+          <i data-lucide="bot" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-xs text-slate-900">مستشار بي نيشتي الذكي</h4>
+          <span class="text-[10px] text-emerald-600 font-bold block">متصل الآن 24/7</span>
+        </div>
+      </div>
+      <button onclick="toggleAIChat()" class="text-slate-400 hover:text-black"><i data-lucide="x" class="w-4 h-4"></i></button>
+    </div>
+
+    <div id="ai-chat-messages" class="h-60 overflow-y-auto space-y-2 text-xs p-1">
+      <div class="bg-amber-50 border border-amber-200 p-2.5 rounded-2xl text-slate-800 leading-relaxed text-right">
+        مرحباً بك في منصة بي نيشتي! أنا مستشارك العقاري الذكي. يمكنك سؤالي عن متوسط أسعار الشقق في أسيوط (حي النميس، الجمهورية، الهضبة) أو أحياء مدينة نصر وكيفية حجز ونشر العقارات.
+      </div>
+    </div>
+
+    <div class="pt-2 border-t mt-2 flex gap-1.5">
+      <input type="text" id="ai-chat-input" placeholder="اكتب سؤالك هنا..." class="flex-1 bg-slate-100 px-3 py-2 rounded-xl text-xs outline-none" onkeydown="if(event.key==='Enter') sendAIMessage()">
+      <button onclick="sendAIMessage()" class="bg-slate-900 text-white p-2 rounded-xl hover:bg-slate-800 transition"><i data-lucide="send" class="w-3.5 h-3.5"></i></button>
+    </div>
+  </div>
+
+  <!-- Luxury Footer -->
+  <footer class="bg-slate-950 text-slate-300 border-t border-slate-900 py-16 text-xs mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 text-right">
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold">
+            <i data-lucide="building-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="text-base font-black text-white">بي نيشتي للاستثمار العقاري</h4>
+            <span class="text-[10px] text-amber-500 font-bold block">المنصة الأولى المعتمدة بأسيوط والقاهرة</span>
+          </div>
+        </div>
+        <p class="text-slate-400 text-xs leading-relaxed">
+          المنصة العقارية الرائدة والمتخصصة في تسويق وعرض الشقق والعقارات للبيع والإيجار في أسيوط بجميع أحيائها ومراكزها وأرقى مناطق مدينة نصر.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">أهم مناطق أسيوط</h4>
+        <ul class="space-y-2 text-slate-400 text-xs">
+          <li><a href="properties.html?city=ASSIUT&district=حي النميس" class="hover:text-amber-400 transition">حي النميس الراقي</a></li>
+          <li><a href="properties.html?city=ASSIUT&district=شارع الجمهورية" class="hover:text-amber-400 transition">شارع الجمهورية (كورنيش النيل)</a></li>
+          <li><a href="properties.html?city=ASSIUT&district=حي فريال" class="hover:text-amber-400 transition">حي فريال وميدان المنفلوطي</a></li>
+          <li><a href="properties.html?city=ASSIUT_NASSER" class="hover:text-amber-400 transition">مدينة ناصر (الهضبة الغربية)</a></li>
+          <li><a href="properties.html?city=ASSIUT_NEW" class="hover:text-amber-400 transition">أسيوط الجديدة (جامعة بدر وسفنكس)</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">أهم مناطق مدينة نصر</h4>
+        <ul class="space-y-2 text-slate-400 text-xs">
+          <li><a href="properties.html?city=NASR_CITY&district=شارع مكرم عبيد" class="hover:text-amber-400 transition">شارع مكرم عبيد الرئيسي</a></li>
+          <li><a href="properties.html?city=NASR_CITY&district=شارع عباس العقاد" class="hover:text-amber-400 transition">شارع عباس العقاد والحديقة الدولية</a></li>
+          <li><a href="properties.html?city=NASR_CITY&district=الحي السابع" class="hover:text-amber-400 transition">الحي السابع والواحة</a></li>
+          <li><a href="properties.html?city=NASR_CITY&district=زهراء مدينة نصر" class="hover:text-amber-400 transition">زهراء مدينة نصر</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-3">
+        <h4 class="text-white font-bold text-sm mb-2">الحساب البنكي المعتمد - بنك مصر</h4>
+        <div class="bg-white/5 border border-white/10 p-3 rounded-xl space-y-1">
+          <div class="text-[11px] text-slate-400">اسم المستفيد: <strong class="text-white">حسام رمضان بخيت عثمان احمد</strong></div>
+          <div class="text-[11px] text-slate-400">رقم الحساب: <strong class="text-amber-400 font-mono">3670383000000918</strong></div>
+          <div class="text-[10px] text-slate-400">الآيبان: <span class="font-mono text-slate-300" dir="ltr">EG410002036703670383000000918</span></div>
+        </div>
+        <div class="text-[11px] text-slate-500">نقبل: فيزا، ماستركارد، Apple Pay، إنستاباي، وفودافون كاش.</div>
+      </div>
+    </div>
+    <div class="border-t border-slate-900 mt-10 pt-6 text-center text-slate-600 text-xs">
+      © 2026 بي نيشتي للاستثمار العقاري. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    let filterPurpose = 'ALL';
+    let currentSiteLang = 'ar';
+
+    // Initial Verified Properties
+    const defaultProperties = [
+      {
+        id: 'prop-1',
+        listingNumber: 'ASY-101',
+        title: 'شقة فاخرة للبيع بفيو مفتوح في حي النميس أرقى مناطق أسيوط',
+        city: 'ASSIUT',
+        district: 'حي النميس',
+        address: 'شارع النميس الرئيسي، بجوار بنك مصر، أسيوط',
+        purpose: 'SALE',
+        propertyType: 'APARTMENT',
+        price: 2450000,
+        areaSqm: 185,
+        bedrooms: 3,
+        bathrooms: 2,
+        floor: 5,
+        finishing: 'الترا سوبر لوكس',
+        description: 'شقة فندقية على أعلى مستوى بحي النميس، أرضيات بورسلين مستورد، أطقم صحية ديورافيت، جيبسوم بورد مع إضاءة ذكية، ريسبشن 3 قطع واسع، فيو مفتوح وغير مجروح، حصة في الأرض والجراج، ومسجلة شهر عقاري.',
+        phone: '010128699614',
+        whatsapp: '2010128699614',
+        images: [
+          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80'
+        ],
+        isFeatured: true
+      },
+      {
+        id: 'prop-2',
+        listingNumber: 'ASY-102',
+        title: 'شقة سوبر لوكس للإيجار السكني في شارع الجمهورية أسيوط',
+        city: 'ASSIUT',
+        district: 'شارع الجمهورية',
+        address: 'شارع الجمهورية أمام ديوان عام محافظة أسيوط',
+        purpose: 'RENT',
+        propertyType: 'APARTMENT',
+        price: 8500,
+        areaSqm: 160,
+        bedrooms: 3,
+        bathrooms: 2,
+        floor: 3,
+        finishing: 'سوبر لوكس',
+        description: 'شقة ممتازة للإيجار موقع استراتيجي حيوي بشارع الجمهورية أسيوط، تشطيب كامل ممتاز ومجهزة بجميع التوصيلات، مناسبة لأسرة أو عيادة/مكتب راقٍ.',
+        phone: '010128699614',
+        whatsapp: '2010128699614',
+        images: [
+          'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80'
+        ],
+        isFeatured: true
+      },
+      {
+        id: 'prop-3',
+        listingNumber: 'ASY-103',
+        title: 'دوبلكس فاخر للبيع بحي فريال بأسيوط مع حديقة خاصة',
+        city: 'ASSIUT',
+        district: 'حي فريال',
+        address: 'ميدان المنفلوطي، حي فريال، أسيوط',
+        purpose: 'SALE',
+        propertyType: 'DUPLEX',
+        price: 3800000,
+        areaSqm: 260,
+        bedrooms: 4,
+        bathrooms: 3,
+        floor: 1,
+        finishing: 'الترا لوكس',
+        description: 'دوبلكس مميز بحي فريال الهادئ والراقي، تشطيب ديكورات حديثة، مدخل رخام فخم، كاميرات مراقبة وأمن 24 ساعة.',
+        phone: '010128699614',
+        whatsapp: '2010128699614',
+        images: [
+          'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80'
+        ],
+        isFeatured: true
+      },
+      {
+        id: 'prop-4',
+        listingNumber: 'NC-201',
+        title: 'شقة للبيع بشارع مكرم عبيد الرئيسي - مدينة نصر',
+        city: 'NASR_CITY',
+        district: 'مكرم عبيد',
+        address: 'شارع مكرم عبيد الرئيسي بالقرب من سيتي سنتر',
+        purpose: 'SALE',
+        propertyType: 'APARTMENT',
+        price: 3100000,
+        areaSqm: 190,
+        bedrooms: 3,
+        bathrooms: 2,
+        floor: 6,
+        finishing: 'الترا سوبر لوكس',
+        description: 'شقة راقية في قلب مدينة نصر على شارع مكرم عبيد مباشرة، غير مجروحة، عمارة حديثة مدخل فندقي، 2 أسانسير، أمن وحراسة، جاهزة للاستلام الفوري.',
+        phone: '010128699614',
+        whatsapp: '2010128699614',
+        images: [
+          'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80'
+        ],
+        isFeatured: true
+      },
+      {
+        id: 'prop-5',
+        listingNumber: 'ASY-NEW-301',
+        title: 'شقة للبيع بأسيوط الجديدة أمام بوابات جامعة بدر (BUA)',
+        city: 'ASSIUT_NEW',
+        district: 'أسيوط الجديدة - محيط جامعة بدر',
+        address: 'الحي الثاني، بالقرب من جامعة بدر وجامعة سفنكس',
+        purpose: 'SALE',
+        price: 950000,
+        areaSqm: 130,
+        bedrooms: 3,
+        bathrooms: 1,
+        floor: 2,
+        finishing: 'سوبر لوكس',
+        description: 'فرصة استثمارية وسكنية ممتازة بأسيوط الجديدة بعائد إيجاري طلابي مرتفع، قريبة جداً من جامعتي بدر وسفنكس والمنطقة المركزية.',
+        phone: '010128699614',
+        whatsapp: '2010128699614',
+        images: [
+          'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80'
+        ],
+        isFeatured: true
+      },
+      {
+        id: 'prop-6',
+        listingNumber: 'ASY-NAS-401',
+        title: 'شقة للبيع بكمبوند مدينة ناصر (الهضبة الغربية) أسيوط',
+        city: 'ASSIUT_NASSER',
+        district: 'مدينة ناصر - المرحلة الأولى',
+        address: 'الهضبة الغربية، المرحلة الأولى بجوار سكن مصر',
+        purpose: 'SALE',
+        price: 1450000,
+        areaSqm: 155,
+        bedrooms: 3,
+        bathrooms: 2,
+        floor: 3,
+        finishing: 'نصف تشطيب',
+        description: 'شقة في أحدث وأرقى مدن الصعيد، مدينة ناصر الهضبة، إطلالة جبلية رائعة وهوائها نقي، طريق المطار الجديد مباشرة، تسليم فوري.',
+        phone: '010128699614',
+        whatsapp: '2010128699614',
+        images: [
+          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
+        ],
+        isFeatured: true
+      }
+    ];
+
+    function getAllProperties() {
+      let userProps = [];
+      try {
+        userProps = JSON.parse(localStorage.getItem('aqarat_user_properties') || '[]');
+      } catch (e) {}
+      return [...userProps, ...defaultProperties];
+    }
+
+    function renderPropertiesGrid(list) {
+      const grid = document.getElementById('properties-grid');
+      const badge = document.getElementById('props-count-badge');
+      badge.innerText = '(' + list.length + ' عقار متاح)';
+      grid.innerHTML = '';
+
+      if (list.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center py-12 bg-white rounded-3xl border text-slate-400">لا توجد عقارات مطابقة لبحثك حالياً. يمكنك تجربة تغيير الفلاتر أو إضافة عقارك الآن!</div>';
+        return;
+      }
+
+      list.forEach(prop => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-amber-400 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col group';
+        
+        const img = (prop.images && prop.images[0]) ? prop.images[0] : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
+        const purposeText = prop.purpose === 'RENT' ? 'للإيجار' : 'للبيع';
+        const purposeClass = prop.purpose === 'RENT' ? 'bg-indigo-600 text-white' : 'bg-emerald-600 text-white';
+
+        card.innerHTML = `
+          <div class="relative aspect-video bg-slate-900 overflow-hidden cursor-pointer" onclick="openPropModal('${prop.id}')">
+            <img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 ${purposeClass} text-[10px] font-black px-2.5 py-1 rounded-full shadow">${purposeText}</span>
+            <span class="absolute top-3 left-3 bg-amber-500 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full shadow">توثيق معتمد</span>
+            <span class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md text-white text-[11px] font-mono px-2 py-0.5 rounded-lg">${prop.listingNumber || ''}</span>
+          </div>
+
+          <div class="p-5 flex-1 flex flex-col justify-between text-right space-y-4">
+            <div>
+              <div class="flex items-center gap-1.5 text-xs text-amber-600 font-bold mb-1">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                <span>${prop.district || ''} - ${prop.city === 'ASSIUT' ? 'أسيوط' : (prop.city === 'NASR_CITY' ? 'مدينة نصر' : prop.city)}</span>
+              </div>
+              <h3 onclick="openPropModal('${prop.id}')" class="font-black text-slate-900 text-base leading-snug line-clamp-2 hover:text-amber-600 transition cursor-pointer">
+                ${prop.title}
+              </h3>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 py-2 border-y border-slate-100 text-slate-600 text-[11px] font-bold text-center">
+              <span>${prop.areaSqm} م²</span>
+              <span>${prop.bedrooms || 3} غرف</span>
+              <span>${prop.bathrooms || 2} حمام</span>
+            </div>
+
+            <div class="flex items-center justify-between pt-1">
+              <div>
+                <span class="text-[10px] text-slate-400 block">السعر المطلوب</span>
+                <span class="text-lg font-black text-slate-950 font-mono">${Number(prop.price).toLocaleString()} <span class="text-xs font-bold font-sans">ج.م</span></span>
+              </div>
+              <button onclick="openPropModal('${prop.id}')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-3.5 py-2 rounded-xl transition">
+                التفاصيل
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    function setFilterPurpose(purpose) {
+      filterPurpose = purpose;
+      document.querySelectorAll('.filter-tab').forEach(b => {
+        b.className = 'filter-tab px-4 py-1.5 rounded-xl text-xs font-bold transition text-white hover:bg-white/10';
+      });
+      event.target.className = 'filter-tab px-4 py-1.5 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950';
+      applySearchFilter();
+    }
+
+    function applySearchFilter() {
+      const city = document.getElementById('filter-city').value;
+      const type = document.getElementById('filter-type').value;
+      const priceRange = document.getElementById('filter-price').value;
+
+      let list = getAllProperties();
+
+      if (filterPurpose !== 'ALL') {
+        list = list.filter(p => p.purpose === filterPurpose);
+      }
+      if (city !== 'ALL') {
+        list = list.filter(p => p.city === city);
+      }
+      if (type !== 'ALL') {
+        list = list.filter(p => p.propertyType === type);
+      }
+      if (priceRange === 'UNDER_1M') {
+        list = list.filter(p => p.price < 1000000);
+      } else if (priceRange === '1M_2M') {
+        list = list.filter(p => p.price >= 1000000 && p.price <= 2000000);
+      } else if (priceRange === '2M_3M') {
+        list = list.filter(p => p.price > 2000000 && p.price <= 3000000);
+      } else if (priceRange === 'ABOVE_3M') {
+        list = list.filter(p => p.price > 3000000);
+      }
+
+      renderPropertiesGrid(list);
+    }
+
+    function openPropModal(id) {
+      const all = getAllProperties();
+      const p = all.find(item => item.id === id);
+      if (!p) return;
+
+      document.getElementById('modal-img').src = (p.images && p.images[0]) ? p.images[0] : '';
+      document.getElementById('modal-badge-purpose').innerText = p.purpose === 'RENT' ? 'للإيجار الشهري' : 'للبيع تمليك';
+      document.getElementById('modal-code').innerText = 'كود الإعلان: ' + (p.listingNumber || '');
+      document.getElementById('modal-title').innerText = p.title;
+      document.getElementById('modal-location').innerText = p.address || (p.city + ' - ' + p.district);
+      document.getElementById('modal-price').innerText = Number(p.price).toLocaleString() + ' ج.م';
+      document.getElementById('modal-area').innerText = 'المساحة: ' + p.areaSqm + ' م²';
+      document.getElementById('modal-beds').innerText = p.bedrooms + ' غرف';
+      document.getElementById('modal-baths').innerText = p.bathrooms + ' حمام';
+      document.getElementById('modal-desc').innerText = p.description || 'عقار راقٍ بمواصفات ممتازة وموقع استراتيجي.';
+
+      const waMsg = encodeURIComponent('مرحباً، أنا مهتم بالإعلان رقم (' + p.listingNumber + ') ' + p.title);
+      document.getElementById('modal-btn-wa').href = 'https://wa.me/' + (p.whatsapp || '2010128699614') + '?text=' + waMsg;
+      document.getElementById('modal-btn-call').href = 'tel:' + (p.phone || '010128699614');
+
+      document.getElementById('prop-modal').classList.remove('hidden');
+      document.getElementById('prop-modal').classList.add('flex');
+      lucide.createIcons();
+    }
+
+    function closePropModal() {
+      document.getElementById('prop-modal').classList.add('hidden');
+      document.getElementById('prop-modal').classList.remove('flex');
+    }
+
+    function toggleAIChat() {
+      const m = document.getElementById('ai-chat-modal');
+      m.classList.toggle('hidden');
+      m.classList.toggle('flex');
+      lucide.createIcons();
+    }
+
+    function sendAIMessage() {
+      const input = document.getElementById('ai-chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('ai-chat-messages');
+      container.innerHTML += `<div class="bg-slate-900 text-white p-2 rounded-xl text-left font-mono">${text}</div>`;
+      input.value = '';
+
+      setTimeout(() => {
+        let reply = 'شكراً لتواصلك! لدينا خيارات عقارية متعددة في أسيوط والهضبة وأسيوط الجديدة ومدينة نصر. يمكنك تصفح العروض أو الضغط على "اعرض عقارك الآن" لإضافة شقتك فوراً!';
+        if (text.includes('سعر') || text.includes('كام')) {
+          reply = 'تبدأ أسعار الشقق في أسيوط من 950 ألف في أسيوط الجديدة، ومن 1.4 مليون في الهضبة، و2 إلى 3.8 مليون في حي النميس وفريال والجمهورية، وفي مدينة نصر من 2.5 إلى 4.5 مليون.';
+        } else if (text.includes('دفع') || text.includes('فيزا') || text.includes('بنك')) {
+          reply = 'نقبل السداد الفوري عبر بنك مصر (حساب: 3670383000000918 باسم حسام رمضان)، وكذلك الفيزا وماستركارد مع تحقق 3D-Secure 2.0 ونشر فوري!';
+        }
+        container.innerHTML += `<div class="bg-amber-50 border border-amber-200 p-2.5 rounded-2xl text-slate-900 text-right">${reply}</div>`;
+        container.scrollTop = container.scrollHeight;
+      }, 500);
+    }
+
+    function toggleSiteLanguage() {
+      currentSiteLang = currentSiteLang === 'ar' ? 'en' : 'ar';
+      document.documentElement.dir = currentSiteLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = currentSiteLang;
+      document.getElementById('lang-btn-text').innerText = currentSiteLang === 'ar' ? 'English' : 'العربية';
+    }
+
+    window.onload = () => {
+      renderPropertiesGrid(getAllProperties());
+      lucide.createIcons();
+    };
+  </script>
+</body>
+</html>

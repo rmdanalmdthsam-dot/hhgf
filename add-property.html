@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إضافة عقار جديد | بي نيشتي للاستثمار العقاري</title>
+  <link rel="icon" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'Tajawal', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Cairo', 'Tajawal', sans-serif; }
+    .fade-enter { animation: fadeIn 0.25s ease-out forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-white">
+
+  <!-- Top Micro-bar -->
+  <div class="bg-slate-900 text-slate-300 text-xs py-1.5 px-4 sm:px-8 flex justify-between items-center border-b border-slate-800">
+    <div class="flex items-center gap-4">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-semibold text-white">بي نيشتي للاستثمار العقاري</span>
+        <span class="text-slate-400 hidden sm:inline">- المنصة المعتمدة بأسيوط ومدينة نصر ومصر</span>
+      </span>
+      <span class="hidden md:inline-block text-slate-600">|</span>
+      <span class="hidden md:inline-block text-slate-400">تصفح مجاني 100% بدون عمولات</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="toggleLanguage()" class="flex items-center gap-1 text-[11px] font-bold bg-white/10 hover:bg-white/20 text-white px-2.5 py-0.5 rounded-full transition">
+        <i data-lucide="globe" class="w-3 h-3 text-amber-400"></i>
+        <span id="lang-btn-text">English</span>
+      </button>
+      <span class="text-xs text-amber-400 font-semibold">خدمة عملاء 24/7</span>
+    </div>
+  </div>
+
+  <!-- Main Navbar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform shrink-0">
+          <i data-lucide="building-2" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight block">
+            بي نيشتي <span class="text-amber-600">للاستثمار العقاري</span>
+          </span>
+          <span class="text-[11px] font-semibold text-slate-500 tracking-normal block -mt-0.5">
+            عقارات أسيوط والهضبة والجديدة ومدينة نصر
+          </span>
+        </div>
+      </a>
+
+      <!-- Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-700">
+        <a href="index.html" class="hover:text-amber-600 transition">الرئيسية</a>
+        <a href="properties.html?city=ASSIUT" class="hover:text-amber-600 transition">عقارات أسيوط</a>
+        <a href="properties.html?city=NASR_CITY" class="hover:text-amber-600 transition">عقارات مدينة نصر</a>
+        <a href="properties.html?purpose=SALE" class="hover:text-amber-600 transition">شقق للبيع</a>
+        <a href="properties.html?purpose=RENT" class="hover:text-amber-600 transition">شقق للإيجار</a>
+      </nav>
+
+      <!-- Action -->
+      <div class="flex items-center gap-3">
+        <a href="properties.html" class="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-amber-600 px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 transition">
+          <i data-lucide="search" class="w-3.5 h-3.5"></i>
+          <span>تصفح العقارات</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Wizard Body Container -->
+  <main class="flex-1 py-8 sm:py-10">
+    <div id="wizard-container" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Stepper Header Card -->
+      <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm mb-6">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <span class="text-xs font-bold text-amber-600 block" id="txt-wizard-badge">معالج النشر الذكي</span>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-900" id="txt-wizard-title">
+              إضافة عقار جديد (الخطوة <span id="current-step-num">1</span> من 8)
+            </h1>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="toggleLanguage()" class="text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 px-3 py-1.5 rounded-full flex items-center gap-1.5 transition">
+              <i data-lucide="globe" class="w-3.5 h-3.5 text-amber-600"></i>
+              <span id="lang-btn-card">English</span>
+            </button>
+            <span class="text-xs font-bold bg-amber-50 border border-amber-200 text-amber-900 px-3 py-1.5 rounded-full hidden sm:inline-block" id="step-badge-text">
+              نوع العملية
+            </span>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+          <div id="step-progress-bar" class="bg-gradient-to-r from-amber-500 to-amber-600 h-full transition-all duration-300" style="width: 12.5%"></div>
+        </div>
+      </div>
+
+      <!-- Main Step Box Card -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm relative min-h-[460px]">
+
+        <!-- STEP 1: Operation & Property Type -->
+        <div id="step-1" class="step-view space-y-6">
+          <h2 class="text-lg font-bold text-slate-900 border-b pb-3 flex items-center gap-2">
+            <i data-lucide="key" class="w-5 h-5 text-amber-600"></i>
+            <span>الخطوة 1: حدد نوع العملية ونوع العقار</span>
+          </h2>
+
+          <div>
+            <label class="text-xs font-bold text-slate-600 block mb-2">نوع العرض *</label>
+            <div class="grid grid-cols-2 gap-4">
+              <button type="button" onclick="setPurpose('SALE')" id="btn-purpose-sale" class="p-4 rounded-2xl border-2 font-bold text-sm transition flex items-center justify-center gap-2 border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm">
+                <i data-lucide="tag" class="w-4 h-4"></i>
+                <span>عقار للبيع (تمليك)</span>
+              </button>
+              <button type="button" onclick="setPurpose('RENT')" id="btn-purpose-rent" class="p-4 rounded-2xl border-2 font-bold text-sm transition flex items-center justify-center gap-2 border-slate-200 hover:border-slate-300 text-slate-700">
+                <i data-lucide="calendar" class="w-4 h-4"></i>
+                <span>عقار للإيجار (شهري)</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs font-bold text-slate-600 block mb-2">نوع العقار *</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <button type="button" onclick="setPropertyType('APARTMENT')" class="type-btn p-3.5 rounded-xl border text-xs font-bold transition border-amber-500 bg-amber-50 text-amber-900 shadow-sm">شقة سكنية</button>
+              <button type="button" onclick="setPropertyType('DUPLEX')" class="type-btn p-3.5 rounded-xl border text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700">دوبلكس فاخر</button>
+              <button type="button" onclick="setPropertyType('VILLA')" class="type-btn p-3.5 rounded-xl border text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700">فيلا مستقلة</button>
+              <button type="button" onclick="setPropertyType('COMMERCIAL')" class="type-btn p-3.5 rounded-xl border text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700">محل تجاري</button>
+              <button type="button" onclick="setPropertyType('OFFICE')" class="type-btn p-3.5 rounded-xl border text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700">مكتب إداري / عيادة</button>
+              <button type="button" onclick="setPropertyType('LAND')" class="type-btn p-3.5 rounded-xl border text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700">أرض فضاء / استثمارية</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Property Data -->
+        <div id="step-2" class="step-view space-y-6 hidden">
+          <h2 class="text-lg font-bold text-slate-900 border-b pb-3 flex items-center gap-2">
+            <i data-lucide="home" class="w-5 h-5 text-amber-600"></i>
+            <span>الخطوة 2: مواصفات وتفاصيل العقار والسعر</span>
+          </h2>
+
+          <div class="space-y-4">
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">عنوان الإعلان الرئيسي *</label>
+              <input type="text" id="prop-title" required placeholder="مثال: شقة للبيع بفيو مفتوح في حي النميس أرقى مناطق أسيوط" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 outline-none text-sm font-medium">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">السعر المطلوب بالجنيه المصري (EGP) *</label>
+                <input type="number" id="prop-price" required placeholder="مثال: 2450000" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 outline-none text-sm font-bold font-mono">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">المساحة الإجمالية بالمتر المربع (م²) *</label>
+                <input type="number" id="prop-area" required placeholder="مثال: 185" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 outline-none text-sm font-medium font-mono">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">عدد الغرف</label>
+                <input type="number" id="prop-beds" value="3" min="1" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-center font-bold text-sm">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">عدد الحمامات</label>
+                <input type="number" id="prop-baths" value="2" min="1" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-center font-bold text-sm">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">رقم الدور</label>
+                <input type="number" id="prop-floor" value="4" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-center font-bold text-sm">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">حالة التشطيب</label>
+                <select id="prop-finishing" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs font-bold">
+                  <option value="ULTRA_LUX">الترا سوبر لوكس</option>
+                  <option value="SUPER_LUX">سوبر لوكس</option>
+                  <option value="LUX">لوكس</option>
+                  <option value="SEMI_FINISHED">نصف تشطيب</option>
+                  <option value="WITHOUT_FINISH">بدون تشطيب (طوب أحمر)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">وصف تفصيلي ومزايا العقار *</label>
+              <textarea id="prop-desc" rows="3" placeholder="اكتب وصفاً جذاباً يشمل الفيو، المرافق، حصة الأرض، المصعد الكهربائي، وقرب العقار من الخدمات الرئيسية..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 outline-none text-xs sm:text-sm leading-relaxed"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Location & Contact -->
+        <div id="step-3" class="step-view space-y-6 hidden">
+          <h2 class="text-lg font-bold text-slate-900 border-b pb-3 flex items-center gap-2">
+            <i data-lucide="map-pin" class="w-5 h-5 text-amber-600"></i>
+            <span>الخطوة 3: الموقع الجغرافي وبيانات التواصل</span>
+          </h2>
+
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">المحافظة / المدينة *</label>
+                <select id="prop-city" onchange="updateDistrictOptions()" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 outline-none text-sm font-bold bg-white">
+                  <option value="ASSIUT">أسيوط (الأحياء والمراكز)</option>
+                  <option value="ASSIUT_NEW">أسيوط الجديدة (جامعة بدر وسفنكس)</option>
+                  <option value="ASSIUT_NASSER">مدينة ناصر (الهضبة الغربية)</option>
+                  <option value="NASR_CITY">مدينة نصر (القاهرة)</option>
+                  <option value="EGYPT_ALL">سائر محافظات مصر</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">الحي / المنطقة بالتحديد *</label>
+                <select id="prop-district" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 outline-none text-sm font-bold bg-white">
+                  <!-- Injected dynamically -->
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">العنوان التفصيلي أو أقرب علامة مميزة</label>
+              <input type="text" id="prop-address" placeholder="مثال: شارع النميس الرئيسي بجوار بنك مصر أو أمام ديوان المحافظة" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 outline-none text-sm font-medium">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t">
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">رقم هاتف الاتصال المباشر *</label>
+                <input type="tel" id="prop-phone" required placeholder="010128699614" value="010128699614" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 outline-none text-sm font-bold font-mono" dir="ltr">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">رقم الواتساب للتواصل الفوري</label>
+                <input type="tel" id="prop-whatsapp" placeholder="2010128699614" value="2010128699614" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 outline-none text-sm font-bold font-mono" dir="ltr">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4: Media Gallery & Image Editor -->
+        <div id="step-4" class="step-view space-y-6 hidden">
+          <div class="flex justify-between items-center border-b pb-3">
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="image" class="w-5 h-5 text-amber-600"></i>
+              <span>الخطوة 4: معرض الصور والفيديو (مع محرر الصور الذكي)</span>
+            </h2>
+            <span class="text-xs text-slate-500" id="photo-count-badge">0 صور مختارة</span>
+          </div>
+
+          <!-- Upload Dropzone -->
+          <div class="border-2 border-dashed border-amber-400 bg-amber-50/40 rounded-3xl p-6 text-center hover:bg-amber-50/80 transition cursor-pointer" onclick="document.getElementById('multi-file-input').click()">
+            <input type="file" id="multi-file-input" multiple accept="image/*" class="hidden" onchange="handleMultipleImagesUpload(event)">
+            <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-3 shadow-inner">
+              <i data-lucide="upload-cloud" class="w-7 h-7"></i>
+            </div>
+            <h4 class="font-black text-slate-900 text-base mb-1">اضغط هنا لرفع صور العقار أو اسحبها وأفلتها</h4>
+            <p class="text-xs text-slate-500">يمكنك رفع حتى 20 صورة عالية الدقة (JPG, PNG, WEBP) بحد أقصى 10 ميجا لكل صورة</p>
+          </div>
+
+          <!-- Thumbnails with Editor Controls -->
+          <div id="images-preview-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            <!-- Dynamically injected preview cards -->
+          </div>
+
+          <!-- Video Section -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-2">
+            <label class="text-xs font-bold text-slate-700 block flex items-center gap-1.5">
+              <i data-lucide="video" class="w-4 h-4 text-indigo-600"></i>
+              <span>رابط فيديو معاينة العقار (اختياري - يوتيوب أو فيديو مباشر):</span>
+            </label>
+            <input type="url" id="prop-video" placeholder="https://www.youtube.com/watch?v=..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-mono outline-none" dir="ltr">
+          </div>
+        </div>
+
+        <!-- STEP 5: Package Selection -->
+        <div id="step-5" class="step-view space-y-6 hidden">
+          <h2 class="text-lg font-bold text-slate-900 border-b pb-3 flex items-center gap-2">
+            <i data-lucide="boxes" class="w-5 h-5 text-amber-600"></i>
+            <span>الخطوة 5: اختر باقة النشر المناسبة لعقارك</span>
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Pkg 1 -->
+            <div onclick="selectPackage(400, 'الباقة الاقتصادية (400 ج.م)')" id="pkg-card-400" class="pkg-box cursor-pointer p-5 rounded-2xl border-2 transition border-slate-200 hover:border-slate-300 relative">
+              <span class="text-xs font-bold text-slate-500 block mb-1">نشر أساسي</span>
+              <h3 class="font-black text-lg text-slate-900">الباقة الاقتصادية</h3>
+              <div class="my-3">
+                <span class="text-3xl font-black text-slate-900">400</span>
+                <span class="text-xs text-slate-500 font-bold">ج.م / 30 يوم</span>
+              </div>
+              <ul class="text-xs text-slate-600 space-y-2 border-t pt-3">
+                <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> حتى 6 صور عالية الدقة</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> مدة عرض 30 يوماً</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> تواصل مباشر مع المشتري</li>
+              </ul>
+            </div>
+
+            <!-- Pkg 2 (Popular) -->
+            <div onclick="selectPackage(600, 'الباقة المتقدمة (600 ج.م)')" id="pkg-card-600" class="pkg-box cursor-pointer p-5 rounded-2xl border-2 transition border-amber-500 bg-amber-50/60 shadow-md relative">
+              <span class="absolute -top-2.5 right-4 bg-amber-500 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">الأكثر طلباً</span>
+              <span class="text-xs font-bold text-amber-700 block mb-1">سرعة في البيع</span>
+              <h3 class="font-black text-lg text-slate-900">الباقة المتقدمة</h3>
+              <div class="my-3">
+                <span class="text-3xl font-black text-amber-600">600</span>
+                <span class="text-xs text-slate-500 font-bold">ج.م / 45 يوم</span>
+              </div>
+              <ul class="text-xs text-slate-600 space-y-2 border-t border-amber-200/80 pt-3">
+                <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> حتى 15 صورة + فيديو</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> أولوية في نتائج البحث</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> شارة عقار معتمد</li>
+              </ul>
+            </div>
+
+            <!-- Pkg 3 (VIP) -->
+            <div onclick="selectPackage(800, 'الباقة الماسية المميزة (800 ج.م)')" id="pkg-card-800" class="pkg-box cursor-pointer p-5 rounded-2xl border-2 transition border-slate-200 hover:border-slate-300 relative">
+              <span class="text-xs font-bold text-purple-600 block mb-1">أعلى وصول</span>
+              <h3 class="font-black text-lg text-slate-900">الباقة الماسية المميزة</h3>
+              <div class="my-3">
+                <span class="text-3xl font-black text-slate-900">800</span>
+                <span class="text-xs text-slate-500 font-bold">ج.م / 60 يوم</span>
+              </div>
+              <ul class="text-xs text-slate-600 space-y-2 border-t pt-3">
+                <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> حتى 30 صورة + فيديو عالي الجودة</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> تثبيت في صدارة الموقع 60 يوماً</li>
+                <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> شارة توثيق VIP الذهبية</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 6: Payment Method -->
+        <div id="step-6" class="step-view space-y-6 hidden">
+          <h2 class="text-lg font-bold text-slate-900 border-b pb-3 flex items-center gap-2">
+            <i data-lucide="credit-card" class="w-5 h-5 text-amber-600"></i>
+            <span>الخطوة 6: وسيلة سداد رسوم النشر</span>
+          </h2>
+
+          <div class="bg-slate-900 text-white p-5 rounded-2xl flex justify-between items-center shadow-lg">
+            <div>
+              <span class="text-xs text-slate-400">الباقة المختارة:</span>
+              <h4 class="font-bold text-base text-amber-400" id="summary-pkg-name">الباقة المتقدمة (600 ج.م)</h4>
+            </div>
+            <div class="text-left">
+              <span class="text-xs text-slate-400 block">المبلغ المطلوب:</span>
+              <span class="text-2xl font-black text-white"><span id="summary-pkg-price">600</span> ج.م</span>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <!-- 1. Card & Apple Pay -->
+            <div onclick="selectPaymentMethod('CARD')" id="pm-box-card" class="cursor-pointer p-4 rounded-2xl border-2 flex items-center justify-between transition border-slate-900 bg-slate-900 text-white shadow-md">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-white text-slate-950 flex items-center justify-center font-bold shrink-0">
+                  <i data-lucide="credit-card" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="font-bold text-sm text-white">البطاقات البنكية و Apple Pay (بوابة فاخرة مشفرة)</h4>
+                    <span class="bg-emerald-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">نشر فوري ولحظي</span>
+                  </div>
+                  <span class="text-xs text-slate-300">Apple Pay, Visa, Mastercard, Meeza مع تحقق بنكي 3D-Secure 2.0</span>
+                </div>
+              </div>
+              <input type="radio" name="payment_method" checked class="accent-amber-400 w-4 h-4">
+            </div>
+
+            <!-- 2. Banque Misr Direct -->
+            <div onclick="selectPaymentMethod('BANK_MISR')" id="pm-box-misr" class="cursor-pointer p-4 rounded-2xl border-2 flex items-center justify-between transition border-slate-200 hover:border-slate-300">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center font-black text-sm shrink-0 border border-amber-300">
+                  BM
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="font-bold text-sm text-slate-900">تحويل بنكي مباشر (بنك مصر - Banque Misr)</h4>
+                    <span class="bg-amber-100 text-amber-800 text-[10px] font-black px-2 py-0.5 rounded-full">موصى به</span>
+                  </div>
+                  <span class="text-xs text-slate-500">حساب رقم: 3670383000000918 | الآيبان (IBAN) متاح للتحويل اللحظي</span>
+                </div>
+              </div>
+              <input type="radio" name="payment_method" class="accent-amber-600 w-4 h-4">
+            </div>
+
+            <!-- 3. InstaPay -->
+            <div onclick="selectPaymentMethod('INSTAPAY')" id="pm-box-instapay" class="cursor-pointer p-4 rounded-2xl border-2 flex items-center justify-between transition border-slate-200 hover:border-slate-300">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs shrink-0">IPN</div>
+                <div>
+                  <h4 class="font-bold text-sm text-slate-900">تطبيق InstaPay (شبكة المدفوعات اللحظية)</h4>
+                  <span class="text-xs text-slate-500">تحويل فوري إلى عنوان الدفع اللحظي أو عبر الرابط المباشر</span>
+                </div>
+              </div>
+              <input type="radio" name="payment_method" class="accent-indigo-600 w-4 h-4">
+            </div>
+
+            <!-- 4. Vodafone Cash -->
+            <div onclick="selectPaymentMethod('WALLET')" id="pm-box-wallet" class="cursor-pointer p-4 rounded-2xl border-2 flex items-center justify-between transition border-slate-200 hover:border-slate-300">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-red-100 text-red-700 flex items-center justify-center font-bold text-xs shrink-0">VF</div>
+                <div>
+                  <h4 class="font-bold text-sm text-slate-900">محفظة فودافون كاش</h4>
+                  <span class="text-xs text-slate-500">تحويل إلى رقم المحفظة برابط مباشر أو كود QR</span>
+                </div>
+              </div>
+              <input type="radio" name="payment_method" class="accent-red-600 w-4 h-4">
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 7: Review Data -->
+        <div id="step-7" class="step-view space-y-6 hidden">
+          <h2 class="text-lg font-bold text-slate-900 border-b pb-3 flex items-center gap-2">
+            <i data-lucide="file-check" class="w-5 h-5 text-amber-600"></i>
+            <span>الخطوة 7: مراجعة بيانات الإعلان قبل الإرسال</span>
+          </h2>
+
+          <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-4 text-sm">
+            <div class="flex justify-between items-center border-b pb-3">
+              <span class="text-slate-500">عنوان الإعلان:</span>
+              <strong class="text-slate-900" id="rev-title">-</strong>
+            </div>
+            <div class="flex justify-between items-center border-b pb-3">
+              <span class="text-slate-500">الموقع:</span>
+              <strong class="text-slate-900" id="rev-location">-</strong>
+            </div>
+            <div class="flex justify-between items-center border-b pb-3">
+              <span class="text-slate-500">السعر المعروض:</span>
+              <strong class="text-slate-900 text-base" id="rev-price">-</strong>
+            </div>
+            <div class="flex justify-between items-center border-b pb-3">
+              <span class="text-slate-500">المساحة:</span>
+              <strong class="text-slate-900" id="rev-area">-</strong>
+            </div>
+            <div class="flex justify-between items-center border-b pb-3">
+              <span class="text-slate-500">الباقة المختارة:</span>
+              <strong class="text-amber-600" id="rev-package">-</strong>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-500">وسيلة السداد:</span>
+              <strong class="text-slate-900" id="rev-pm">-</strong>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 leading-relaxed flex items-start gap-2.5">
+            <i data-lucide="shield-check" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5"></i>
+            <span><strong>سياسة النشر الآمن:</strong> في حال الدفع بالبطاقة البنكية أو Apple Pay، يتم نشر وتفعيل الإعلان فوراً وبشكل لحظي. في حال التحويل البنكي أو المحفظة يتم تفعيل الإعلان فور مراجعة العملية.</span>
+          </div>
+        </div>
+
+        <!-- STEP 8: Payment Execution & Live Confirmation -->
+        <div id="step-8" class="step-view space-y-6 hidden">
+          <!-- Pending Payment Container -->
+          <div id="step-8-pending">
+            <div class="text-center mb-6">
+              <div class="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-2 text-amber-600">
+                <i data-lucide="shield-check" class="w-7 h-7"></i>
+              </div>
+              <h2 class="text-xl font-black text-slate-900">الخطوة الأخيرة: سداد رسوم الباقة وتأكيد التحويل</h2>
+              <p class="text-xs text-slate-500 mt-1">
+                كود الإعلان: <span class="font-mono font-bold text-amber-600" id="disp-listing-code">ASY-8291</span> | رقم الطلب: <span class="font-mono font-bold text-slate-700" id="disp-order-code">ORD-49210</span>
+              </p>
+            </div>
+
+            <!-- 1. Dark Luxury Card & Apple Pay Screen -->
+            <div id="screen-card" class="bg-[#0e0f12] text-white rounded-3xl p-6 sm:p-9 border border-white/10 shadow-2xl mb-6">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-7 space-y-6 text-right">
+                  <div>
+                    <span class="text-xs font-bold text-slate-400 block mb-2">الدفع بواسطة / Pay with</span>
+                    <button type="button" onclick="trigger3DSModal('APPLE_PAY')" class="w-full bg-white hover:bg-slate-100 text-black font-semibold py-3 px-6 rounded-full flex items-center justify-center gap-2 shadow-xl transition-all active:scale-95">
+                      <span class="text-2xl leading-none font-sans"></span>
+                      <span class="text-lg font-bold tracking-tight">Pay</span>
+                    </button>
+                  </div>
+
+                  <div class="relative flex items-center justify-center">
+                    <div class="border-t border-white/10 w-full"></div>
+                    <span class="bg-[#0e0f12] px-4 text-xs font-bold text-slate-500 uppercase tracking-widest">OR</span>
+                    <div class="border-t border-white/10 w-full"></div>
+                  </div>
+
+                  <div class="space-y-4">
+                    <div>
+                      <label class="text-xs font-semibold text-slate-400 block mb-1.5">Card number / رقم البطاقة</label>
+                      <div class="relative">
+                        <input type="text" id="input-card-num" placeholder="4111 2222 3333 8834" value="4111 2222 3333 8834" class="w-full bg-[#1c1d22] text-white placeholder-slate-500 px-4 py-3 rounded-2xl border border-white/10 focus:border-white focus:outline-none font-mono text-sm tracking-wider" dir="ltr">
+                        <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 pointer-events-none">
+                          <span class="text-[10px] bg-red-600 text-white font-black px-1.5 py-0.5 rounded">MC</span>
+                          <span class="text-[10px] bg-blue-600 text-white font-black px-1.5 py-0.5 rounded">VISA</span>
+                          <span class="text-[10px] bg-amber-600 text-white font-black px-1.5 py-0.5 rounded">MEEZA</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                      <div>
+                        <label class="text-xs font-semibold text-slate-400 block mb-1.5">Expiration date</label>
+                        <input type="text" id="input-card-exp" placeholder="12/28" value="12/28" class="w-full bg-[#1c1d22] text-white placeholder-slate-500 px-4 py-3 rounded-2xl border border-white/10 focus:border-white focus:outline-none font-mono text-sm tracking-wider text-center" dir="ltr">
+                      </div>
+                      <div>
+                        <label class="text-xs font-semibold text-slate-400 block mb-1.5">Security code (CVC)</label>
+                        <input type="password" id="input-card-cvc" maxlength="4" placeholder="883" value="883" class="w-full bg-[#1c1d22] text-white placeholder-slate-500 px-4 py-3 rounded-2xl border border-white/10 focus:border-white focus:outline-none font-mono text-sm tracking-wider text-center" dir="ltr">
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="button" onclick="trigger3DSModal('CARD')" class="w-full bg-white hover:bg-slate-100 text-black font-bold py-3.5 rounded-full text-sm transition shadow-xl active:scale-95">
+                    سداد EGP <span class="card-btn-price">600</span> الآن بالبطاقة
+                  </button>
+                </div>
+
+                <!-- Plan summary column -->
+                <div class="lg:col-span-5 bg-[#1f2026] p-6 rounded-3xl border border-white/10 space-y-5 text-right">
+                  <div>
+                    <h3 class="text-2xl font-black text-white">Go plan</h3>
+                    <span class="text-xs text-amber-400 font-bold block mt-0.5">باقة بي نيشتي المتميزة للنشر العقاري</span>
+                  </div>
+
+                  <ul class="space-y-3 text-xs text-slate-200 border-t border-white/10 pt-3">
+                    <li class="flex items-start gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-amber-400 shrink-0"></i> <span>نشر فوري ولحظي على المنصة</span></li>
+                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i> <span>تسوية مباشرة لحساب بنك مصر المعتمد</span></li>
+                    <li class="flex items-start gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-sky-400 shrink-0"></i> <span>شهادة ترخيص بنكي 3D-Secure 2.0</span></li>
+                  </ul>
+
+                  <div class="border-t border-white/10 pt-3 space-y-2 text-xs">
+                    <div class="flex justify-between items-center text-slate-400">
+                      <span>Monthly subscription</span>
+                      <span class="font-mono text-white">EGP <span class="card-btn-price">600</span></span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm font-bold pt-2 border-t border-white/10 text-white">
+                      <span>Due today</span>
+                      <span class="font-mono text-amber-400 font-black text-base">EGP <span class="card-btn-price">600</span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Banque Misr Screen -->
+            <div id="screen-misr" class="bg-gradient-to-br from-amber-50 via-white to-amber-50/40 rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-xl mb-6 hidden">
+              <div class="flex flex-col md:flex-row gap-6 items-center border-b border-amber-200/80 pb-6 mb-6">
+                <div class="w-48 sm:w-56 bg-white p-3 rounded-2xl border border-amber-200 shadow-sm shrink-0 text-center">
+                  <img src="images/banque-misr-details.png" alt="بنك مصر Banque Misr" class="w-full h-auto object-contain rounded-xl">
+                  <span class="text-[11px] font-bold text-amber-900 block mt-2">الحساب البنكي المعتمد - بنك مصر</span>
+                </div>
+
+                <div class="space-y-3.5 flex-1 w-full text-right">
+                  <div>
+                    <span class="text-xs text-slate-500 block mb-0.5">اسم صاحب الحساب المستفيد:</span>
+                    <strong class="font-black text-slate-950 text-base sm:text-lg block">حسام رمضان بخيت عثمان احمد</strong>
+                  </div>
+
+                  <div>
+                    <span class="text-xs text-slate-500 block mb-1">رقم الحساب البنكي (بنك مصر):</span>
+                    <div class="flex items-center justify-between bg-white px-3.5 py-2.5 rounded-xl border border-amber-300/80 shadow-sm">
+                      <span class="font-mono text-base font-black text-slate-900 tracking-wider">3670383000000918</span>
+                      <button type="button" onclick="copyToClipboard('3670383000000918', this)" class="text-xs bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span>نسخ رقم الحساب</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span class="text-xs text-slate-500 block mb-1">الآيبان الدولي (IBAN) للتحويل اللحظي:</span>
+                    <div class="flex items-center justify-between bg-white px-3.5 py-2.5 rounded-xl border border-amber-300/80 shadow-sm">
+                      <span class="font-mono text-xs sm:text-sm font-bold text-slate-800 break-all" dir="ltr">EG410002036703670383000000918</span>
+                      <button type="button" onclick="copyToClipboard('EG410002036703670383000000918', this)" class="text-xs bg-slate-900 hover:bg-slate-800 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition shrink-0 mr-2">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span>نسخ IBAN</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="text-xs text-slate-600 bg-amber-100/60 p-2.5 rounded-xl font-medium">
+                    المبلغ المطلوب تحويله: <strong class="text-amber-950 text-sm font-bold"><span class="card-btn-price">600</span> جنيه مصري</strong> (عبر تطبيق BM Online أو أي بنك مصري أو دولي).
+                  </div>
+                </div>
+              </div>
+
+              <!-- Proof form -->
+              <div class="space-y-4">
+                <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                  <span>سجل بيانات إشعار التحويل لتفعيل الإعلان:</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="text-xs font-bold text-slate-700 block mb-1">اسم صاحب الحساب أو البنك المحول منه *</label>
+                    <input type="text" id="sender-acc-name" placeholder="مثال: أحمد محمد (بنك مصر / CIB)" class="w-full text-xs sm:text-sm px-4 py-2.5 rounded-xl border border-slate-300 outline-none bg-white">
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-slate-700 block mb-1">الرقم المرجعي أو كود العملية من إشعار التحويل *</label>
+                    <input type="text" id="sender-ref-num" placeholder="مثال: REF-9281920" class="w-full text-xs sm:text-sm px-4 py-2.5 rounded-xl border border-slate-300 outline-none bg-white font-mono">
+                  </div>
+                </div>
+                <button type="button" onclick="submitManualProof()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-lg">
+                  تأكيد التحويل البنكي وإرسال الإعلان للمراجعة
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. InstaPay Screen -->
+            <div id="screen-instapay" class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-6 hidden">
+              <div class="flex flex-col md:flex-row gap-6 items-center">
+                <div class="w-44 h-44 bg-white p-2 rounded-2xl border shadow-sm shrink-0 flex items-center justify-center">
+                  <img src="images/payments/instapay-qr.png" alt="InstaPay QR" class="w-full h-full object-contain">
+                </div>
+                <div class="space-y-3 flex-1 text-right">
+                  <div>
+                    <span class="text-xs text-slate-400 block mb-1">عنوان الدفع اللحظي (IPA):</span>
+                    <div class="flex items-center justify-between bg-white px-3 py-2 rounded-xl border">
+                      <span class="font-mono text-sm font-bold text-indigo-900" dir="ltr">ufjnw201128699614@instapay</span>
+                      <button type="button" onclick="copyToClipboard('ufjnw201128699614@instapay', this)" class="text-xs text-indigo-600 font-bold flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>نسخ</span>
+                      </button>
+                    </div>
+                  </div>
+                  <a href="https://ipn.eg/S/ufjnw201128699614/instapay/1dPmzy" target="_blank" class="w-full bg-gradient-to-r from-purple-700 to-indigo-800 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-95 transition text-xs shadow-md">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    <span>فتح رابط التحويل المباشر في تطبيق InstaPay</span>
+                  </a>
+                </div>
+              </div>
+              <button type="button" onclick="submitManualProof()" class="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-sm transition">
+                تأكيد سداد InstaPay وإرسال الإعلان
+              </button>
+            </div>
+
+            <!-- 4. Vodafone Cash Screen -->
+            <div id="screen-wallet" class="bg-red-50/50 rounded-2xl p-6 border border-red-200 mb-6 hidden">
+              <div class="flex flex-col md:flex-row gap-6 items-center">
+                <div class="w-44 h-44 bg-white p-2 rounded-2xl border shadow-sm shrink-0 flex items-center justify-center">
+                  <img src="images/payments/vodafone-qr.png" alt="Vodafone Cash QR" class="w-full h-full object-contain">
+                </div>
+                <div class="space-y-3 flex-1 text-right">
+                  <div>
+                    <span class="text-xs text-slate-500 block mb-1">رقم محفظة فودافون كاش:</span>
+                    <div class="flex items-center justify-between bg-white px-3 py-2 rounded-xl border border-red-200">
+                      <span class="font-mono text-base font-black text-red-600" dir="ltr">010128699614</span>
+                      <button type="button" onclick="copyToClipboard('010128699614', this)" class="text-xs text-red-600 font-bold flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>نسخ الرقم</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="text-xs text-slate-600">المستفيد: <strong>حسام رمضان بخيت عثمان احمد</strong></div>
+                  <a href="http://vf.eg/vfcash?id=mt&qrId=0oi72w" target="_blank" class="w-full bg-red-600 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-red-700 transition text-xs shadow-md">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    <span>فتح رابط السداد السريع لمحفظة فودافون كاش</span>
+                  </a>
+                </div>
+              </div>
+              <button type="button" onclick="submitManualProof()" class="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-sm transition">
+                تأكيد سداد فودافون كاش وإرسال الإعلان
+              </button>
+            </div>
+          </div>
+
+          <!-- SUCCESS & INSTANT LIVE SETTLEMENT RECEIPT (When paid) -->
+          <div id="step-8-success" class="space-y-6 text-center py-4 hidden">
+            <div class="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-3xl flex items-center justify-center mx-auto shadow-xl shadow-emerald-500/10 border-2 border-emerald-200">
+              <i data-lucide="check-circle-2" class="w-12 h-12"></i>
+            </div>
+
+            <div>
+              <span class="text-[11px] font-black tracking-widest uppercase bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full inline-block mb-2">
+                INSTANT LIVE & SETTLED
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-black text-slate-900">
+                تهانينا! تم سداد رسوم الباقة وإعلانك منشور الآن مباشرة!
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1 max-w-xl mx-auto">
+                تمت تسوية المبلغ المالي وإيداعه مباشرة في الحساب البنكي المعتمد لبنك مصر للمستفيد، وأصبح عقارك الآن نشطاً ويظهر لآلاف المشترين!
+              </p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3 pt-2">
+              <a href="properties.html" class="bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-black text-sm px-7 py-3.5 rounded-2xl shadow-xl shadow-emerald-600/20 transition flex items-center gap-2 active:scale-95">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                <span>مشاهدة إعلانك الآن على المنصة مباشر</span>
+              </a>
+              <button type="button" onclick="window.print()" class="bg-white border-2 border-slate-300 hover:border-slate-400 text-slate-800 font-bold text-sm px-6 py-3.5 rounded-2xl transition flex items-center gap-2 shadow-sm">
+                <i data-lucide="printer" class="w-4 h-4 text-slate-600"></i>
+                <span>طباعة إيصال السداد المعتمد</span>
+              </button>
+            </div>
+
+            <!-- Certificate Box -->
+            <div class="bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-amber-500/30 text-right shadow-2xl max-w-2xl mx-auto space-y-5">
+              <div class="flex justify-between items-center border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-black text-sm border border-amber-500/40">BM</div>
+                  <div>
+                    <span class="text-[10px] uppercase font-bold text-amber-400 block tracking-wider">BANQUE MISR SETTLEMENT CERTIFICATE</span>
+                    <h4 class="font-bold text-sm text-white">إشعار تسوية بنكية فورية - بنك مصر</h4>
+                  </div>
+                </div>
+                <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-full font-mono font-bold">VERIFIED 100%</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                  <span class="text-slate-400 block mb-1">المستفيد النهائي / Beneficiary:</span>
+                  <strong class="text-white block font-bold">حسام رمضان بخيت عثمان احمد</strong>
+                  <span class="text-amber-400 font-mono text-[11px] block mt-0.5">بنك مصر (Banque Misr)</span>
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                  <span class="text-slate-400 block mb-1">رقم الحساب المودع إليه:</span>
+                  <strong class="text-amber-300 block font-mono text-sm tracking-wider">3670383000000918</strong>
+                  <span class="text-slate-400 font-mono text-[10px] block mt-0.5" dir="ltr">EG410002036703670383000000918</span>
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                  <span class="text-slate-400 block mb-1">رقم إشعار التسوية المعتمد:</span>
+                  <strong class="text-white font-mono" id="cert-settlement-ref">STL-BM-91823-7412</strong>
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                  <span class="text-slate-400 block mb-1">كود تفويض 3D-Secure البنكي:</span>
+                  <strong class="text-emerald-400 font-mono" id="cert-auth-code">BM-3DS-849201</strong>
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                  <span class="text-slate-400 block mb-1">المبلغ المسدد والعملة:</span>
+                  <strong class="text-amber-400 font-black text-sm"><span class="card-btn-price">600</span> جنيه مصري (EGP)</strong>
+                </div>
+                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                  <span class="text-slate-400 block mb-1">كود الإعلان المنشور:</span>
+                  <strong class="text-white font-mono" id="cert-listing-code">ASY-8291</strong>
+                </div>
+              </div>
+
+              <div class="text-[11px] text-slate-400 border-t border-white/10 pt-3 text-center">
+                تمت المعاملة وفقاً لأعلى معايير التشفير المصرفي العالمي PCI-DSS Level 1 وحماية بنك مصر 3D-Secure.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wizard Navigation Actions (Step 1-7) -->
+        <div id="wizard-nav-actions" class="flex justify-between items-center border-t border-slate-100 pt-6 mt-8">
+          <button type="button" onclick="prevStep()" id="btn-prev-step" class="flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 transition hidden">
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            <span id="txt-btn-prev">الخطوة السابقة</span>
+          </button>
+          <div></div>
+          <button type="button" onclick="nextStep()" id="btn-next-step" class="flex items-center gap-2 text-xs sm:text-sm font-bold bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-xl transition shadow-md">
+            <span id="txt-btn-next">متابعة للخطوة التالية</span>
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- 3D-Secure 2.0 Banque Misr OTP Modal -->
+  <div id="modal-3ds" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 text-center relative fade-enter">
+      <!-- Bank Header -->
+      <div class="flex items-center justify-between border-b pb-4 mb-5">
+        <div class="flex items-center gap-2.5 text-right">
+          <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-black text-sm shadow-md">BM</div>
+          <div>
+            <h4 class="font-black text-sm text-slate-900">بنك مصر - Banque Misr</h4>
+            <span class="text-[10px] text-slate-500 font-bold block">3D-Secure 2.0 Identity Check</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="text-[10px] font-black bg-blue-100 text-blue-900 px-2 py-0.5 rounded">VISA</span>
+          <span class="text-[10px] font-black bg-red-100 text-red-900 px-2 py-0.5 rounded">MC</span>
+        </div>
+      </div>
+
+      <!-- Transaction summary -->
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs text-right space-y-2 mb-5">
+        <div class="flex justify-between">
+          <span class="text-slate-500">التاجر / Merchant:</span>
+          <strong class="text-slate-900">منصة بي نيشتي للعقارات</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">المستفيد / Beneficiary:</span>
+          <strong class="text-amber-800">حسام رمضان بخيت عثمان احمد</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">حساب التسوية / Account:</span>
+          <span class="font-mono font-bold text-slate-800">3670383000000918</span>
+        </div>
+        <div class="flex justify-between border-t pt-2">
+          <span class="text-slate-500">المبلغ المطلوب خصمه:</span>
+          <strong class="text-amber-600 font-black text-sm"><span class="card-btn-price">600</span> EGP</strong>
+        </div>
+      </div>
+
+      <!-- OTP Input Prompt -->
+      <div class="space-y-3 mb-6 text-right">
+        <label class="text-xs font-bold text-slate-700 block">
+          أدخل رمز الأمان المؤقت (OTP) المرسل إلى هاتفك المحمول المسجل بالبنك:
+        </label>
+        <div class="relative">
+          <input type="text" id="otp-input" maxlength="6" value="849201" placeholder="849201" class="w-full text-center text-xl font-mono font-black tracking-widest py-3 border-2 border-amber-500 rounded-2xl outline-none bg-amber-50/30 text-slate-900">
+        </div>
+        <div class="flex justify-between items-center text-[11px] text-slate-500">
+          <span>رمز تجريبي آلي: <strong class="font-mono text-amber-600">849201</strong></span>
+          <span>صالح لمدة: <strong class="text-slate-700">04:59</strong></span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="space-y-2">
+        <button type="button" onclick="confirm3DSPayment()" id="btn-3ds-confirm" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-2xl text-sm transition shadow-lg flex items-center justify-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+          <span>تأكيد الدفع المشفر والتسوية الآن</span>
+        </button>
+        <button type="button" onclick="close3DSModal()" class="w-full text-xs font-bold text-slate-500 hover:text-slate-800 py-2">
+          إلغاء العملية والرجوع
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-300 border-t border-slate-900 mt-16 py-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <div class="flex items-center justify-center gap-2 text-white font-bold text-sm">
+        <i data-lucide="building-2" class="w-4 h-4 text-amber-500"></i>
+        <span>بي نيشتي للاستثمار العقاري - أسيوط ومدينة نصر ومصر</span>
+      </div>
+      <p class="text-slate-500 max-w-xl mx-auto">
+        الحساب البنكي المعتمد: بنك مصر | رقم الحساب: <strong class="text-amber-400 font-mono">3670383000000918</strong> | المستفيد: <strong>حسام رمضان بخيت عثمان احمد</strong>
+      </p>
+      <div class="text-slate-600">© 2026 بي نيشتي للاستثمار العقاري. جميع الحقوق محفوظة.</div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // State
+    let currentStep = 1;
+    let currentLang = 'ar';
+    let formData = {
+      purpose: 'SALE',
+      propertyType: 'APARTMENT',
+      title: '',
+      price: 2450000,
+      areaSqm: 185,
+      bedrooms: 3,
+      bathrooms: 2,
+      floor: 4,
+      finishing: 'ULTRA_LUX',
+      description: '',
+      city: 'ASSIUT',
+      district: 'حي النميس',
+      address: '',
+      phone: '010128699614',
+      whatsapp: '2010128699614',
+      videoUrl: '',
+      packagePrice: 600,
+      packageName: 'الباقة المتقدمة (600 ج.م)',
+      paymentMethod: 'CARD',
+      images: [
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=1200&q=80'
+      ]
+    };
+
+    const districtMap = {
+      ASSIUT: ['حي النميس', 'شارع الجمهورية (كورنيش النيل)', 'حي فريال', 'شارع الهلالي', 'حي الأزهر ومحيط الجامعة', 'المعلمين ونزلة عبد اللاه', 'سيتي وشركة قلتة', 'حي الوليدية', 'الأربعين والزهراء'],
+      ASSIUT_NEW: ['أسيوط الجديدة - محيط جامعة بدر (BUA)', 'أسيوط الجديدة - محيط جامعة سفنكس', 'أسيوط الجديدة - الحي الأول', 'أسيوط الجديدة - الحي الثاني', 'أسيوط الجديدة - الحي الثالث', 'أسيوط الجديدة - ابني بيتك'],
+      ASSIUT_NASSER: ['مدينة ناصر (الهضبة الغربية) - المرحلة الأولى', 'مدينة ناصر (الهضبة) - سكن مصر', 'مدينة ناصر (الهضبة) - كمبوندات وفلل'],
+      NASR_CITY: ['شارع مكرم عبيد', 'شارع عباس العقاد والحديقة الدولية', 'شارع الطيران', 'الحي السابع', 'الحي الثامن', 'حي الواحة', 'زهراء مدينة نصر'],
+      EGYPT_ALL: ['القاهرة الجديدة - التجمع الخامس', 'مدينة الشيخ زايد و 6 أكتوبر', 'العاصمة الإدارية الجديدة', 'المعادي والمقطم', 'الإسكندرية والساحل الشمالي']
+    };
+
+    function init() {
+      updateDistrictOptions();
+      renderImages();
+      updateStepUI();
+      lucide.createIcons();
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = currentLang;
+      document.getElementById('lang-btn-text').innerText = currentLang === 'ar' ? 'English' : 'العربية';
+      document.getElementById('lang-btn-card').innerText = currentLang === 'ar' ? 'English' : 'العربية';
+      updateStepUI();
+    }
+
+    function setPurpose(purpose) {
+      formData.purpose = purpose;
+      const btnSale = document.getElementById('btn-purpose-sale');
+      const btnRent = document.getElementById('btn-purpose-rent');
+      if (purpose === 'SALE') {
+        btnSale.className = 'p-4 rounded-2xl border-2 font-bold text-sm transition flex items-center justify-center gap-2 border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm';
+        btnRent.className = 'p-4 rounded-2xl border-2 font-bold text-sm transition flex items-center justify-center gap-2 border-slate-200 hover:border-slate-300 text-slate-700';
+      } else {
+        btnRent.className = 'p-4 rounded-2xl border-2 font-bold text-sm transition flex items-center justify-center gap-2 border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm';
+        btnSale.className = 'p-4 rounded-2xl border-2 font-bold text-sm transition flex items-center justify-center gap-2 border-slate-200 hover:border-slate-300 text-slate-700';
+      }
+    }
+
+    function setPropertyType(type) {
+      formData.propertyType = type;
+      const btns = document.querySelectorAll('.type-btn');
+      btns.forEach(b => {
+        b.className = 'type-btn p-3.5 rounded-xl border text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700';
+      });
+      event.target.className = 'type-btn p-3.5 rounded-xl border text-xs font-bold transition border-amber-500 bg-amber-50 text-amber-900 shadow-sm';
+    }
+
+    function updateDistrictOptions() {
+      const city = document.getElementById('prop-city').value;
+      formData.city = city;
+      const select = document.getElementById('prop-district');
+      select.innerHTML = '';
+      const list = districtMap[city] || districtMap.ASSIUT;
+      list.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d;
+        opt.innerText = d;
+        select.appendChild(opt);
+      });
+      formData.district = select.value;
+    }
+
+    function selectPackage(price, name) {
+      formData.packagePrice = price;
+      formData.packageName = name;
+      document.querySelectorAll('.pkg-box').forEach(b => {
+        b.classList.remove('border-amber-500', 'bg-amber-50/60', 'shadow-md');
+        b.classList.add('border-slate-200');
+      });
+      const selected = document.getElementById('pkg-card-' + price);
+      if (selected) {
+        selected.classList.add('border-amber-500', 'bg-amber-50/60', 'shadow-md');
+        selected.classList.remove('border-slate-200');
+      }
+      document.getElementById('summary-pkg-name').innerText = name;
+      document.getElementById('summary-pkg-price').innerText = price;
+      document.querySelectorAll('.card-btn-price').forEach(el => el.innerText = price);
+    }
+
+    function selectPaymentMethod(method) {
+      formData.paymentMethod = method;
+      document.querySelectorAll('#pm-box-card, #pm-box-misr, #pm-box-instapay, #pm-box-wallet').forEach(el => {
+        el.className = 'cursor-pointer p-4 rounded-2xl border-2 flex items-center justify-between transition border-slate-200 hover:border-slate-300';
+      });
+      const target = method === 'CARD' ? 'pm-box-card' : (method === 'BANK_MISR' ? 'pm-box-misr' : (method === 'INSTAPAY' ? 'pm-box-instapay' : 'pm-box-wallet'));
+      const activeEl = document.getElementById(target);
+      if (activeEl) {
+        if (method === 'CARD') {
+          activeEl.className = 'cursor-pointer p-4 rounded-2xl border-2 flex items-center justify-between transition border-slate-900 bg-slate-900 text-white shadow-md';
+        } else {
+          activeEl.className = 'cursor-pointer p-4 rounded-2xl border-2 flex items-center justify-between transition border-amber-600 bg-amber-50/80 shadow-sm';
+        }
+      }
+    }
+
+    // Image Upload & Manipulation (Rotate 90°, Delete, Set Cover)
+    function handleMultipleImagesUpload(e) {
+      const files = Array.from(e.target.files);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          formData.images.push(event.target.result);
+          renderImages();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderImages() {
+      const grid = document.getElementById('images-preview-grid');
+      const badge = document.getElementById('photo-count-badge');
+      if (badge) badge.innerText = formData.images.length + ' صور مختارة';
+      grid.innerHTML = '';
+
+      formData.images.forEach((imgUrl, idx) => {
+        const card = document.createElement('div');
+        card.className = 'group relative aspect-video bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-sm';
+        card.innerHTML = `
+          <img src="${imgUrl}" class="w-full h-full object-cover">
+          ${idx === 0 ? '<span class="absolute top-2 right-2 bg-amber-500 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-full shadow">الغلاف الرئيسي</span>' : ''}
+          <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1.5 p-1">
+            <button type="button" onclick="rotateImage(${idx})" title="تدوير 90 درجة" class="p-1.5 bg-white/20 hover:bg-white text-white hover:text-black rounded-lg transition"><i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i></button>
+            <button type="button" onclick="setCoverImage(${idx})" title="تعيين كغلاف" class="p-1.5 bg-white/20 hover:bg-amber-500 text-white hover:text-black rounded-lg transition"><i data-lucide="star" class="w-3.5 h-3.5"></i></button>
+            <button type="button" onclick="deleteImage(${idx})" title="حذف الصورة" class="p-1.5 bg-red-600/80 hover:bg-red-600 text-white rounded-lg transition"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    function deleteImage(idx) {
+      if (formData.images.length <= 1) {
+        alert('يجب الإبقاء على صورة واحدة على الأقل للعقار.');
+        return;
+      }
+      formData.images.splice(idx, 1);
+      renderImages();
+    }
+
+    function setCoverImage(idx) {
+      const item = formData.images.splice(idx, 1)[0];
+      formData.images.unshift(item);
+      renderImages();
+    }
+
+    function rotateImage(idx) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = formData.images[idx];
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.height;
+        canvas.height = img.width;
+        const ctx = canvas.getContext('2d');
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate((90 * Math.PI) / 180);
+        ctx.drawImage(img, -img.width / 2, -img.height / 2);
+        formData.images[idx] = canvas.toDataURL();
+        renderImages();
+      };
+    }
+
+    // Step Navigation
+    function nextStep() {
+      if (currentStep === 2) {
+        const title = document.getElementById('prop-title').value.trim();
+        const price = document.getElementById('prop-price').value;
+        const area = document.getElementById('prop-area').value;
+        if (!title || !price || !area) {
+          alert('يرجى كتابة عنوان الإعلان والسعر والمساحة للمتابعة.');
+          return;
+        }
+        formData.title = title;
+        formData.price = Number(price);
+        formData.areaSqm = Number(area);
+        formData.bedrooms = Number(document.getElementById('prop-beds').value);
+        formData.bathrooms = Number(document.getElementById('prop-baths').value);
+        formData.floor = Number(document.getElementById('prop-floor').value);
+        formData.finishing = document.getElementById('prop-finishing').value;
+        formData.description = document.getElementById('prop-desc').value.trim();
+      }
+
+      if (currentStep === 3) {
+        formData.city = document.getElementById('prop-city').value;
+        formData.district = document.getElementById('prop-district').value;
+        formData.address = document.getElementById('prop-address').value.trim();
+        formData.phone = document.getElementById('prop-phone').value.trim();
+        formData.whatsapp = document.getElementById('prop-whatsapp').value.trim();
+      }
+
+      if (currentStep === 7) {
+        currentStep = 8;
+        setupStep8View();
+        updateStepUI();
+        return;
+      }
+
+      currentStep = Math.min(currentStep + 1, 8);
+      if (currentStep === 7) populateReviewData();
+      updateStepUI();
+    }
+
+    function prevStep() {
+      currentStep = Math.max(currentStep - 1, 1);
+      updateStepUI();
+    }
+
+    function updateStepUI() {
+      document.querySelectorAll('.step-view').forEach(v => v.classList.add('hidden'));
+      const active = document.getElementById('step-' + currentStep);
+      if (active) active.classList.remove('hidden');
+
+      document.getElementById('current-step-num').innerText = currentStep;
+      document.getElementById('step-progress-bar').style.width = (currentStep / 8 * 100) + '%';
+
+      const btnPrev = document.getElementById('btn-prev-step');
+      const btnNext = document.getElementById('btn-next-step');
+      const navActions = document.getElementById('wizard-nav-actions');
+
+      if (currentStep > 1 && currentStep < 8) {
+        btnPrev.classList.remove('hidden');
+      } else {
+        btnPrev.classList.add('hidden');
+      }
+
+      if (currentStep === 7) {
+        document.getElementById('txt-btn-next').innerText = 'تأكيد والانتقال إلى خطوة الدفع';
+      } else {
+        document.getElementById('txt-btn-next').innerText = 'متابعة للخطوة التالية';
+      }
+
+      if (currentStep === 8) {
+        navActions.classList.add('hidden');
+      } else {
+        navActions.classList.remove('hidden');
+      }
+
+      lucide.createIcons();
+    }
+
+    function populateReviewData() {
+      document.getElementById('rev-title').innerText = formData.title || 'شقة سكنية مميزة';
+      document.getElementById('rev-location').innerText = formData.city + ' - ' + formData.district;
+      document.getElementById('rev-price').innerText = Number(formData.price).toLocaleString() + ' ج.م';
+      document.getElementById('rev-area').innerText = formData.areaSqm + ' متر مربع';
+      document.getElementById('rev-package').innerText = formData.packageName;
+      document.getElementById('rev-pm').innerText = formData.paymentMethod === 'CARD' ? 'بطاقة بنكية / Apple Pay' : (formData.paymentMethod === 'BANK_MISR' ? 'تحويل بنكي بنك مصر' : formData.paymentMethod);
+    }
+
+    function setupStep8View() {
+      document.getElementById('screen-card').classList.add('hidden');
+      document.getElementById('screen-misr').classList.add('hidden');
+      document.getElementById('screen-instapay').classList.add('hidden');
+      document.getElementById('screen-wallet').classList.add('hidden');
+
+      if (formData.paymentMethod === 'CARD') {
+        document.getElementById('screen-card').classList.remove('hidden');
+      } else if (formData.paymentMethod === 'BANK_MISR') {
+        document.getElementById('screen-misr').classList.remove('hidden');
+      } else if (formData.paymentMethod === 'INSTAPAY') {
+        document.getElementById('screen-instapay').classList.remove('hidden');
+      } else {
+        document.getElementById('screen-wallet').classList.remove('hidden');
+      }
+    }
+
+    // 3DS OTP Execution
+    function trigger3DSModal(brand) {
+      document.getElementById('modal-3ds').classList.remove('hidden');
+      document.getElementById('modal-3ds').classList.add('flex');
+      lucide.createIcons();
+    }
+
+    function close3DSModal() {
+      document.getElementById('modal-3ds').classList.add('hidden');
+      document.getElementById('modal-3ds').classList.remove('flex');
+    }
+
+    function confirm3DSPayment() {
+      const btn = document.getElementById('btn-3ds-confirm');
+      btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> <span>جاري التحقق والخصم الآمن...</span>';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        close3DSModal();
+        savePublishedPropertyToStorage();
+        document.getElementById('step-8-pending').classList.add('hidden');
+        document.getElementById('step-8-success').classList.remove('hidden');
+        lucide.createIcons();
+      }, 900);
+    }
+
+    function submitManualProof() {
+      savePublishedPropertyToStorage();
+      alert('تم إرسال إشعار السداد بنجاح! سيتم التحقق واعتماد الإعلان فوراً.');
+      document.getElementById('step-8-pending').classList.add('hidden');
+      document.getElementById('step-8-success').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function savePublishedPropertyToStorage() {
+      const listingNum = 'ASY-' + Math.floor(1000 + Math.random() * 9000);
+      const newProp = {
+        id: 'prop_' + Date.now(),
+        listingNumber: listingNum,
+        title: formData.title || 'شقة سكنية مميزة بأسيوط',
+        price: formData.price,
+        areaSqm: formData.areaSqm,
+        bedrooms: formData.bedrooms,
+        bathrooms: formData.bathrooms,
+        city: formData.city,
+        district: formData.district,
+        address: formData.address,
+        purpose: formData.purpose,
+        propertyType: formData.propertyType,
+        finishing: formData.finishing,
+        description: formData.description,
+        phone: formData.phone,
+        whatsapp: formData.whatsapp,
+        images: formData.images,
+        isFeatured: true,
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('aqarat_user_properties') || '[]');
+        stored.unshift(newProp);
+        localStorage.setItem('aqarat_user_properties', JSON.stringify(stored));
+      } catch (e) {}
+
+      document.getElementById('disp-listing-code').innerText = listingNum;
+      document.getElementById('cert-listing-code').innerText = listingNum;
+    }
+
+    function copyToClipboard(text, btn) {
+      navigator.clipboard.writeText(text);
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> <span>تم النسخ ✓</span>';
+      lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = original;
+        lucide.createIcons();
+      }, 2000);
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
